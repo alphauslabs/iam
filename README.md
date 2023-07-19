@@ -13,3 +13,13 @@ $ iam whoami
 ```
 
 Run `iam -h` or `iam <subcommand> -h` to know more about the available subcommands and flags.
+
+Explore more available subcommands and flags though:
+
+```bash
+$ iam -h
+
+# or
+
+$ iam <subcmd> -h
+```
