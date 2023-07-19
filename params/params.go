@@ -3,4 +3,5 @@ package params
 var (
 	CredentialsFile string // service acct file for GCP access
 	AccessToken     string // use directly if not empty
+	RunEnv          string // dev, next, prod (default)
 )

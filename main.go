@@ -31,17 +31,24 @@ Copyright (c) 2023-` + year() + ` Alphaus Cloud, Inc. All rights reserved.
 The general form is ` + bold("iam <resource[ subresource...]> <action> [flags]") + `.
 
 To authenticate, either set GOOGLE_APPLICATION_CREDENTIALS env var or
-set the --svcacct-file flag. Ask the service owner if your credentials
+set the --creds-file flag. Ask the service owner if your credentials
 file doesn't have access to the service itself.`,
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
-			// dev: tucpd-dev-cnugyv5cta-an.a.run.app
-			// next: tucpd-next-u554nqhjka-an.a.run.app
-			// prod: tucpd-prod-u554nqhjka-an.a.run.app
-			svc := "tucpd-prod-u554nqhjka-an.a.run.app"
+			if params.AccessToken != "" {
+				return
+			}
+
+			svc := "iamd-prod-u554nqhjka-an.a.run.app"
+			switch params.RunEnv {
+			case "dev":
+				svc = "iamd-dev-cnugyv5cta-an.a.run.app"
+			case "next":
+				svc = "iamd-next-u554nqhjka-an.a.run.app"
+			}
+
 			ctx := context.Background()
 			var ts oauth2.TokenSource
 			var err error
-
 			switch {
 			case params.CredentialsFile != "":
 				opts := idtoken.WithCredentialsFile(params.CredentialsFile)
@@ -62,7 +69,6 @@ file doesn't have access to the service itself.`,
 			}
 
 			params.AccessToken = token.AccessToken
-			logger.Info(params.AccessToken)
 		},
 		Run: func(cmd *cobra.Command, args []string) {
 			logger.Info("see -h for more information")
@@ -75,6 +81,7 @@ func init() {
 	rootCmd.PersistentFlags().SortFlags = false
 	rootCmd.PersistentFlags().StringVar(&params.CredentialsFile, "creds-file", "", "GCP service account file")
 	rootCmd.PersistentFlags().StringVar(&params.AccessToken, "access-token", "", "use directly if not empty")
+	rootCmd.PersistentFlags().StringVar(&params.RunEnv, "env", "prod", "dev, next, or prod")
 	rootCmd.AddCommand(
 		cmds.WhoAmICmd(),
 	)

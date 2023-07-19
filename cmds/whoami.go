@@ -6,6 +6,7 @@ import (
 
 	"github.com/alphauslabs/blue-internal-go/iam/v1"
 	"github.com/alphauslabs/bluectl/pkg/logger"
+	"github.com/alphauslabs/iam/params"
 	"github.com/spf13/cobra"
 	"google.golang.org/api/idtoken"
 	"google.golang.org/grpc"
@@ -28,29 +29,35 @@ func WhoAmICmd() *cobra.Command {
 			creds := credentials.NewTLS(&tls.Config{InsecureSkipVerify: true})
 			opts = append(opts, grpc.WithTransportCredentials(creds))
 			opts = append(opts, grpc.WithBlock())
-			ts, err := idtoken.NewTokenSource(ctx, "https://"+svc)
-			if err != nil {
-				logger.Error(err)
-				return
-			}
 
-			token, err := ts.Token()
-			if err != nil {
-				logger.Error(err)
-				return
+			accessToken := params.AccessToken
+			if accessToken == "" {
+				ts, err := idtoken.NewTokenSource(ctx, "https://"+svc)
+				if err != nil {
+					logger.Error(err)
+					return
+				}
+
+				token, err := ts.Token()
+				if err != nil {
+					logger.Error(err)
+					return
+				}
+
+				accessToken = token.AccessToken
 			}
 
 			opts = append(opts, grpc.WithUnaryInterceptor(func(ctx context.Context,
 				method string, req, reply interface{}, cc *grpc.ClientConn,
 				invoker grpc.UnaryInvoker, opts ...grpc.CallOption) error {
-				ctx = metadata.AppendToOutgoingContext(ctx, "authorization", "Bearer "+token.AccessToken)
+				ctx = metadata.AppendToOutgoingContext(ctx, "authorization", "Bearer "+accessToken)
 				return invoker(ctx, method, req, reply, cc, opts...)
 			}))
 
 			opts = append(opts, grpc.WithStreamInterceptor(func(ctx context.Context,
 				desc *grpc.StreamDesc, cc *grpc.ClientConn, method string, streamer grpc.Streamer,
 				opts ...grpc.CallOption) (grpc.ClientStream, error) {
-				ctx = metadata.AppendToOutgoingContext(ctx, "authorization", "Bearer "+token.AccessToken)
+				ctx = metadata.AppendToOutgoingContext(ctx, "authorization", "Bearer "+accessToken)
 				return streamer(ctx, desc, cc, method, opts...)
 			}))
 
