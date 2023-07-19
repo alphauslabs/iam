@@ -34,10 +34,6 @@ To authenticate, either set GOOGLE_APPLICATION_CREDENTIALS env var or
 set the --creds-file flag. Ask the service owner if your credentials
 file doesn't have access to the service itself.`,
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
-			if params.AccessToken != "" {
-				return
-			}
-
 			params.ServiceHost = params.HostProd
 			switch params.RunEnv {
 			case "dev":
@@ -80,7 +76,6 @@ func init() {
 	rootCmd.Flags().SortFlags = false
 	rootCmd.PersistentFlags().SortFlags = false
 	rootCmd.PersistentFlags().StringVar(&params.CredentialsFile, "creds-file", "", "optional, GCP service account file")
-	rootCmd.PersistentFlags().StringVar(&params.AccessToken, "access-token", "", "use directly if not empty")
 	rootCmd.PersistentFlags().StringVar(&params.RunEnv, "env", "prod", "dev, next, or prod")
 	rootCmd.AddCommand(
 		cmds.WhoAmICmd(),

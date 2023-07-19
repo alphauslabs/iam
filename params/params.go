@@ -8,7 +8,7 @@ const (
 
 var (
 	CredentialsFile string // service acct file for GCP access
-	AccessToken     string // use directly if not empty
+	AccessToken     string // auto-set, use as Bearer in subcommands
 	RunEnv          string // dev, next, prod (default)
 	ServiceHost     string // auto-set
 )
