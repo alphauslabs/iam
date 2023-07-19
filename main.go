@@ -38,12 +38,12 @@ file doesn't have access to the service itself.`,
 				return
 			}
 
-			svc := "iamd-prod-u554nqhjka-an.a.run.app"
+			params.ServiceHost = params.HostProd
 			switch params.RunEnv {
 			case "dev":
-				svc = "iamd-dev-cnugyv5cta-an.a.run.app"
+				params.ServiceHost = params.HostDev
 			case "next":
-				svc = "iamd-next-u554nqhjka-an.a.run.app"
+				params.ServiceHost = params.HostNext
 			}
 
 			ctx := context.Background()
@@ -52,9 +52,9 @@ file doesn't have access to the service itself.`,
 			switch {
 			case params.CredentialsFile != "":
 				opts := idtoken.WithCredentialsFile(params.CredentialsFile)
-				ts, err = idtoken.NewTokenSource(ctx, "https://"+svc, opts)
+				ts, err = idtoken.NewTokenSource(ctx, "https://"+params.ServiceHost, opts)
 			default:
-				ts, err = idtoken.NewTokenSource(ctx, "https://"+svc)
+				ts, err = idtoken.NewTokenSource(ctx, "https://"+params.ServiceHost)
 			}
 
 			if err != nil {
