@@ -16,8 +16,8 @@ import (
 func WhoAmICmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "whoami",
-		Short: "Get my information as a user",
-		Long:  `Get my information as a user.`,
+		Short: "Get my information as an internal user",
+		Long:  `Get my information as an internal user.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			ctx := context.Background()
 			var opts []grpc.DialOption
