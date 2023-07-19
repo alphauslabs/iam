@@ -73,7 +73,7 @@ file doesn't have access to the service itself.`,
 func init() {
 	rootCmd.Flags().SortFlags = false
 	rootCmd.PersistentFlags().SortFlags = false
-	rootCmd.PersistentFlags().StringVar(&params.CredentialsFile, "svcacct-file", "", "GCP service account file")
+	rootCmd.PersistentFlags().StringVar(&params.CredentialsFile, "creds-file", "", "GCP service account file")
 	rootCmd.PersistentFlags().StringVar(&params.AccessToken, "access-token", "", "use directly if not empty")
 	rootCmd.AddCommand(
 		cmds.WhoAmICmd(),
