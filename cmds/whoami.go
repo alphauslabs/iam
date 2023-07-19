@@ -2,15 +2,11 @@ package cmds
 
 import (
 	"context"
-	"crypto/tls"
 
 	"github.com/alphauslabs/blue-internal-go/iam/v1"
 	"github.com/alphauslabs/bluectl/pkg/logger"
-	"github.com/alphauslabs/iam/params"
+	"github.com/alphauslabs/iam/pkg/connection"
 	"github.com/spf13/cobra"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials"
-	"google.golang.org/grpc/metadata"
 )
 
 func WhoAmICmd() *cobra.Command {
@@ -20,27 +16,9 @@ func WhoAmICmd() *cobra.Command {
 		Long:  `Get my information as an internal user.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			ctx := context.Background()
-			var opts []grpc.DialOption
-			creds := credentials.NewTLS(&tls.Config{InsecureSkipVerify: true})
-			opts = append(opts, grpc.WithTransportCredentials(creds))
-			opts = append(opts, grpc.WithBlock())
-			opts = append(opts, grpc.WithUnaryInterceptor(func(ctx context.Context,
-				method string, req, reply interface{}, cc *grpc.ClientConn,
-				invoker grpc.UnaryInvoker, opts ...grpc.CallOption) error {
-				ctx = metadata.AppendToOutgoingContext(ctx, "authorization", "Bearer "+params.AccessToken)
-				return invoker(ctx, method, req, reply, cc, opts...)
-			}))
-
-			opts = append(opts, grpc.WithStreamInterceptor(func(ctx context.Context,
-				desc *grpc.StreamDesc, cc *grpc.ClientConn, method string, streamer grpc.Streamer,
-				opts ...grpc.CallOption) (grpc.ClientStream, error) {
-				ctx = metadata.AppendToOutgoingContext(ctx, "authorization", "Bearer "+params.AccessToken)
-				return streamer(ctx, desc, cc, method, opts...)
-			}))
-
-			con, err := grpc.DialContext(ctx, params.ServiceHost+":443", opts...)
+			con, err := connection.New(ctx)
 			if err != nil {
-				logger.Errorf("DialContext failed: %v", err)
+				logger.Errorf("connection.New failed: %v", err)
 				return
 			}
 
@@ -48,7 +26,7 @@ func WhoAmICmd() *cobra.Command {
 			client := iam.NewIamServiceClient(con)
 			resp, err := client.WhoAmI(ctx, &iam.WhoAmIRequest{})
 			if err != nil {
-				logger.Error(err)
+				logger.Errorf("WhoAmI failed: %v", err)
 				return
 			}
 
