@@ -76,7 +76,9 @@ func WhoAmICmd() *cobra.Command {
 				return
 			}
 
-			logger.Info(resp)
+			for k, v := range resp.Info {
+				logger.Infof("%v: %v", k, v)
+			}
 		},
 	}
 
