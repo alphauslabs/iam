@@ -16,8 +16,6 @@ Explore more available subcommands and flags though:
 
 ```bash
 $ iam -h
-
 # or
-
 $ iam <subcmd> -h
 ```
