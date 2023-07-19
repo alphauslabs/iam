@@ -28,8 +28,7 @@ jobs:
         eval "$(ssh-agent -s)"
         ssh-add - <<< "${{ secrets.DK_BLUE_INTERNAL_GO }}"
         git config --global --add url."ssh://git@github.com/".insteadOf "https://github.com/"
-        cat ~/.gitconfig
-        GOPRIVATE=github.com/alphauslabs/blue-internal-go go test -v ./...
+        go test -v ./...
 
     - name: Run goreleaser
       uses: goreleaser/goreleaser-action@v2
