@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/alphauslabs/bluectl/pkg/logger"
+	"github.com/alphauslabs/iam/cmds"
 	"github.com/alphauslabs/iam/params"
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
@@ -22,12 +23,12 @@ var (
 	}
 
 	rootCmd = &cobra.Command{
-		Use:   "tucp",
-		Short: bold("tucp") + " - Command line interface for tucpd",
-		Long: bold("tucp") + ` - Command line interface for the TrueUnblended Control Plane.
+		Use:   "iam",
+		Short: bold("iam") + " - Command line interface for iamd",
+		Long: bold("iam") + ` - Command line interface for our internal IAM service.
 Copyright (c) 2023-` + year() + ` Alphaus Cloud, Inc. All rights reserved.
 
-The general form is ` + bold("tucp <resource[ subresource...]> <action> [flags]") + `.
+The general form is ` + bold("iam <resource[ subresource...]> <action> [flags]") + `.
 
 To authenticate, either set GOOGLE_APPLICATION_CREDENTIALS env var or
 set the --svcacct-file flag. Ask the service owner if your credentials
@@ -74,9 +75,9 @@ func init() {
 	rootCmd.PersistentFlags().SortFlags = false
 	rootCmd.PersistentFlags().StringVar(&params.CredentialsFile, "svcacct-file", "", "GCP service account file")
 	rootCmd.PersistentFlags().StringVar(&params.AccessToken, "access-token", "", "use directly if not empty")
-	// rootCmd.AddCommand(
-	// 	cmds.WhoAmICmd(),
-	// )
+	rootCmd.AddCommand(
+		cmds.WhoAmICmd(),
+	)
 }
 
 func main() {
