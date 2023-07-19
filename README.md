@@ -12,8 +12,6 @@ To setup authentication, set your `GOOGLE_APPLICATION_CREDENTIALS` env variable.
 $ iam whoami
 ```
 
-Run `iam -h` or `iam <subcommand> -h` to know more about the available subcommands and flags.
-
 Explore more available subcommands and flags though:
 
 ```bash
