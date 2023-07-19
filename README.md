@@ -8,4 +8,4 @@ $ brew install alphauslabs/tap/iam
 
 To setup authentication, set your `GOOGLE_APPLICATION_CREDENTIALS` env variable.
 
-Run `bluectl -h` or `bluectl <subcommand> -h` to know more about the available subcommands and flags.
+Run `iam -h` or `iam <subcommand> -h` to know more about the available subcommands and flags.
