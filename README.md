@@ -6,7 +6,7 @@ To install using [HomeBrew](https://brew.sh/), run the following command:
 $ brew install alphauslabs/tap/iam
 ```
 
-To setup authentication, set your `GOOGLE_APPLICATION_CREDENTIALS` env variable. You can validate by running the following command:
+To setup authentication, set your `GOOGLE_APPLICATION_CREDENTIALS` env variable using your credentials file. You can validate by running the following command:
 
 ```bash
 $ iam whoami
