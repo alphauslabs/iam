@@ -79,6 +79,7 @@ func init() {
 	rootCmd.PersistentFlags().StringVar(&params.RunEnv, "env", "prod", "dev, next, or prod")
 	rootCmd.AddCommand(
 		cmds.WhoAmICmd(),
+		cmds.AllowMeCmd(),
 	)
 }
 
