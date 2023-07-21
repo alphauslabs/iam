@@ -9,6 +9,7 @@ import (
 
 	"github.com/alphauslabs/bluectl/pkg/logger"
 	"github.com/alphauslabs/iam/cmds"
+	"github.com/alphauslabs/iam/cmds/orgs"
 	"github.com/alphauslabs/iam/params"
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
@@ -81,10 +82,12 @@ func init() {
 	rootCmd.PersistentFlags().BoolVar(&params.Bare, "bare", params.Bare, "minimal log output")
 	rootCmd.PersistentFlags().StringVar(&params.CredentialsFile, "creds-file", "", "optional, GCP service account file")
 	rootCmd.PersistentFlags().StringVar(&params.RunEnv, "env", "prod", "dev, next, or prod")
+	rootCmd.PersistentFlags().StringVar(&params.OutFmt, "fmt", "", "json, csv (depending on support)")
 	rootCmd.AddCommand(
 		cmds.WhoAmICmd(),
 		cmds.WhoIsCmd(),
 		cmds.AllowMeCmd(),
+		orgs.OrgsCmd(),
 	)
 }
 
