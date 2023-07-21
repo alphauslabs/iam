@@ -3,7 +3,7 @@ module github.com/alphauslabs/iam
 go 1.20
 
 require (
-	github.com/alphauslabs/blue-internal-go v0.3.0
+	github.com/alphauslabs/blue-internal-go v0.5.2
 	github.com/alphauslabs/bluectl v0.34.12
 	github.com/fatih/color v1.15.0
 	github.com/spf13/cobra v1.7.0

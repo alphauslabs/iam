@@ -65,6 +65,9 @@ file doesn't have access to the service itself.`,
 			}
 
 			params.AccessToken = token.AccessToken
+			if params.Bare {
+				logger.SetPrefix(logger.PrefixNone)
+			}
 		},
 		Run: func(cmd *cobra.Command, args []string) {
 			logger.Info("see -h for more information")
@@ -75,10 +78,12 @@ file doesn't have access to the service itself.`,
 func init() {
 	rootCmd.Flags().SortFlags = false
 	rootCmd.PersistentFlags().SortFlags = false
+	rootCmd.PersistentFlags().BoolVar(&params.Bare, "bare", params.Bare, "minimal log output")
 	rootCmd.PersistentFlags().StringVar(&params.CredentialsFile, "creds-file", "", "optional, GCP service account file")
 	rootCmd.PersistentFlags().StringVar(&params.RunEnv, "env", "prod", "dev, next, or prod")
 	rootCmd.AddCommand(
 		cmds.WhoAmICmd(),
+		cmds.WhoIsCmd(),
 		cmds.AllowMeCmd(),
 	)
 }
