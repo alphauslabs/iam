@@ -38,6 +38,7 @@ func ListCmd() *cobra.Command {
 			render := true
 			table := tablewriter.NewWriter(os.Stdout)
 			table.SetBorder(false)
+			table.SetAutoWrapText(false)
 			table.SetHeaderLine(false)
 			table.SetColumnSeparator("")
 			table.SetTablePadding("  ")
