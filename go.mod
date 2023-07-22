@@ -3,9 +3,10 @@ module github.com/alphauslabs/iam
 go 1.20
 
 require (
-	github.com/alphauslabs/blue-internal-go v0.6.3
+	github.com/alphauslabs/blue-internal-go v0.7.3
 	github.com/alphauslabs/bluectl v0.34.12
 	github.com/fatih/color v1.15.0
+	github.com/olekukonko/tablewriter v0.0.5
 	github.com/spf13/cobra v1.7.0
 	golang.org/x/oauth2 v0.10.0
 	google.golang.org/api v0.132.0
@@ -24,7 +25,6 @@ require (
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.18 // indirect
 	github.com/mattn/go-runewidth v0.0.14 // indirect
-	github.com/olekukonko/tablewriter v0.0.5 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	go.opencensus.io v0.24.0 // indirect

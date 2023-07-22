@@ -2,6 +2,7 @@ package cmds
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/alphauslabs/blue-internal-go/iam/v1"
 	"github.com/alphauslabs/bluectl/pkg/logger"
@@ -30,9 +31,8 @@ func WhoAmICmd() *cobra.Command {
 				return
 			}
 
-			for k, v := range resp.Info {
-				logger.Infof("%v: %v", k, v)
-			}
+			b, _ := json.Marshal(resp.Fields)
+			logger.Info(string(b))
 		},
 	}
 

@@ -38,7 +38,7 @@ func AllowMeCmd() *cobra.Command {
 				return
 			}
 
-			logger.Infof("status: %v", resp.Status)
+			logger.Infof(resp.Message)
 		},
 	}
 
