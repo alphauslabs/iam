@@ -45,10 +45,15 @@ func ListCmd() *cobra.Command {
 			table.SetNoWhiteSpace(true)
 			table.Append([]string{"ID", "NAME", "EMAIL", "STATUS"})
 
+		loop:
 			for {
 				v, err := stream.Recv()
-				if err == io.EOF {
-					break
+				switch {
+				case err == io.EOF:
+					break loop
+				case err != nil && err != io.EOF:
+					logger.Error(err)
+					return
 				}
 
 				switch {
