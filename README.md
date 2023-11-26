@@ -1,3 +1,5 @@
+[![main](https://github.com/alphauslabs/iam/actions/workflows/main.yml/badge.svg)](https://github.com/alphauslabs/iam/actions/workflows/main.yml)
+
 `iam` is the command line client for our internal **IAM** service [(iamd)](https://github.com/mobingilabs/ouchan/tree/master/cloudrun/iamd).
 
 To install using [HomeBrew](https://brew.sh/), run the following command:
