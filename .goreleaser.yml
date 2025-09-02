@@ -1,3 +1,5 @@
+---
+version: 2
 builds:
 - id: "iam"
   binary: iam
@@ -21,13 +23,13 @@ release:
     owner: alphauslabs
     name: iam
 brews:
-- tap:
+- repository:
     owner: alphauslabs
     name: homebrew-tap
   name: iam
   homepage: "https://github.com/alphauslabs/iam"
   description: "The official command line interface for Alphaus internal IAM service."
-  folder: Formula
+  directory: Formula
   install: |
     bin.install "iam"
   test: |
