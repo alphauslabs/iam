@@ -29,7 +29,8 @@ Supported prefixes:
   rroot:     - Ripple/Octo rootuser
   rsub:      - Ripple/Octo subuser
   root:      - Wave[Pro] rootuser
-  sub:       - Wave[Pro] subuser`,
+  sub:       - Wave[Pro] subuser
+  payer:     - AWS payer account (extended)`,
 		Run: func(cmd *cobra.Command, args []string) {
 			if len(args) < 1 {
 				logger.Errorf("<prefix:id> cannot be empty")
