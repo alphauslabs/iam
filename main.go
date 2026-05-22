@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/alphauslabs/bluectl/pkg/logger"
+	"github.com/alphauslabs/blue-sdk-go/pkg/logger"
 	"github.com/alphauslabs/iam/cmds"
 	"github.com/alphauslabs/iam/cmds/orgs"
 	"github.com/alphauslabs/iam/params"

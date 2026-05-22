@@ -7,7 +7,7 @@ import (
 	"os"
 
 	"github.com/alphauslabs/blue-internal-go/iam/v1"
-	"github.com/alphauslabs/bluectl/pkg/logger"
+	"github.com/alphauslabs/blue-sdk-go/pkg/logger"
 	"github.com/alphauslabs/iam/params"
 	"github.com/alphauslabs/iam/pkg/connection"
 	"github.com/olekukonko/tablewriter"
